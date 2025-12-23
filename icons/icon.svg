@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4285f4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#34a853;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="tab-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#f1f3f4;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="60" fill="url(#bg-gradient)"/>
+
+  <!-- Tab 1 (back) -->
+  <rect x="28" y="38" width="72" height="48" rx="4" fill="#ffffff" opacity="0.6"/>
+  <rect x="28" y="38" width="72" height="10" rx="4" fill="#e8eaed"/>
+
+  <!-- Tab 2 (middle) -->
+  <rect x="32" y="44" width="72" height="48" rx="4" fill="#ffffff" opacity="0.8"/>
+  <rect x="32" y="44" width="72" height="10" rx="4" fill="#e8eaed"/>
+
+  <!-- Tab 3 (front) -->
+  <rect x="36" y="50" width="72" height="48" rx="4" fill="url(#tab-gradient)"/>
+  <rect x="36" y="50" width="72" height="12" rx="4" fill="#dadce0"/>
+
+  <!-- Pause/suspend symbol -->
+  <rect x="52" y="64" width="8" height="20" rx="2" fill="#4285f4"/>
+  <rect x="68" y="64" width="8" height="20" rx="2" fill="#4285f4"/>
+
+  <!-- Memory/efficiency dots -->
+  <circle cx="86" y="82" r="3" fill="#34a853"/>
+  <circle cx="92" y="76" r="2" fill="#34a853" opacity="0.7"/>
+</svg>

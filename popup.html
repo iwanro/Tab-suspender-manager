@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tab Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Title and Settings -->
+        <div class="header">
+            <div class="header-left">
+                <i class="fas fa-layer-group header-icon"></i>
+                <h1 class="app-title">Tab Manager</h1>
+            </div>
+            <div class="header-right">
+                <button id="settingsBtn" class="icon-button" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button id="darkModeToggle" class="icon-button" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics Dashboard -->
+        <div class="stats-dashboard">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-list-ul"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalTabs">0</div>
+                    <div class="stat-label">Total Tabs</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-memory"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value" id="memoryUsage">0 KB</div>
+                    <div class="stat-label">Memory Usage</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-folder"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalGroups">0</div>
+                    <div class="stat-label">Groups</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Tabs Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-window-restore section-icon"></i>
+                        Active Tabs
+                    </h2>
+                    <button id="findDuplicates" class="action-button" title="Find Duplicate Tabs">
+                        <i class="fas fa-copy"></i> Find Duplicates
+                    </button>
+                </div>
+                
+                <div class="tabs-container" id="tabsList">
+                    <!-- Tabs will be listed here -->
+                    <div class="empty-state">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>Loading tabs...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sessions Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-save section-icon"></i>
+                        Saved Sessions
+                    </h2>
+                    <button id="saveSession" class="action-button" title="Save Current Session">
+                        <i class="fas fa-plus"></i> Save Session
+                    </button>
+                </div>
+                
+                <div class="sessions-container" id="sessionsList">
+                    <!-- Sessions will be listed here -->
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <span>No saved sessions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="bottom-actions">
+            <button id="suspendAll" class="primary-button" title="Suspend All Tabs">
+                <i class="fas fa-pause"></i> Suspend All
+            </button>
+            <button id="groupTabs" class="secondary-button" title="Group Tabs (Pro Feature)">
+                <i class="fas fa-object-group"></i> Group Tabs
+            </button>
+        </div>
+
+        <!-- Settings Panel -->
+        <div class="settings-panel" id="settingsPanel" style="display: none;">
+            <div class="settings-header">
+                <h2 class="settings-title">
+                    <i class="fas fa-cog section-icon"></i>
+                    Settings
+                </h2>
+                <button id="closeSettings" class="close-button">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="settings-content">
+                <!-- General Settings -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">General</h3>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="showStatistics">
+                            Show statistics dashboard
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="showNotifications">
+                            Show suspension notifications
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="compactView">
+                            Compact view
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Auto-Suspension Settings -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">Auto-Suspension</h3>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="autoSuspendEnabled">
+                            Enable automatic suspension
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            Suspend after:
+                            <select id="autoSuspendMinutes">
+                                <option value="0.5">30 seconds</option>
+                                <option value="1">1 minute</option>
+                                <option value="5">5 minutes</option>
+                                <option value="10">10 minutes</option>
+                                <option value="15">15 minutes</option>
+                                <option value="30">30 minutes</option>
+                                <option value="60">1 hour</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Auto-Save Settings -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">Auto-Save</h3>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="autoSaveEnabled">
+                            Auto-save sessions on close
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            Max auto-saved sessions:
+                            <input type="number" id="autoSaveLimit" min="1" max="10" value="3">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Whitelist Settings -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">Whitelist Domains</h3>
+                    <p class="setting-description">Domains that won't be auto-suspended (one per line)</p>
+                    <textarea id="whitelistDomains" rows="4" placeholder="gmail.com&#10;outlook.com&#10;slack.com"></textarea>
+                </div>
+
+                <!-- Pro Features Section -->
+                <div class="settings-section pro-section">
+                    <h3 class="settings-section-title">
+                        <i class="fas fa-crown"></i>
+                        Pro Features
+                    </h3>
+                    <div class="pro-features-list">
+                        <div class="pro-feature">
+                            <input type="checkbox" id="advancedStats" disabled>
+                            <label>Advanced statistics and analytics</label>
+                        </div>
+                        <div class="pro-feature">
+                            <input type="checkbox" id="customThemes" disabled>
+                            <label>Custom themes and scheduling</label>
+                        </div>
+                        <div class="pro-feature">
+                            <input type="checkbox" id="autoSaveIntervals" disabled>
+                            <label>Configurable auto-save intervals</label>
+                        </div>
+                        <div class="pro-feature">
+                            <input type="checkbox" id="perTabTimer" disabled>
+                            <label>Per-tab time tracking</label>
+                        </div>
+                        <div class="pro-feature">
+                            <input type="checkbox" id="advancedTagging" disabled>
+                            <label>Advanced session tagging</label>
+                        </div>
+                        <div class="pro-feature">
+                            <input type="checkbox" id="customShortcuts" disabled>
+                            <label>Custom keyboard shortcuts</label>
+                        </div>
+                        <div class="pro-feature">
+                            <input type="checkbox" id="groupAnalytics" disabled>
+                            <label>Group analytics and optimization</label>
+                        </div>
+                    </div>
+                    <button class="upgrade-button" id="upgradeBtn">
+                        <i class="fas fa-crown"></i>
+                        Upgrade to Pro
+                    </button>
+                </div>
+
+                <!-- Actions -->
+                <div class="settings-actions">
+                    <button id="saveSettings" class="primary-button">Save Settings</button>
+                    <button id="resetSettings" class="secondary-button">Reset to Defaults</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pro Features Banner -->
+        <div class="pro-banner" id="proFeatures">
+            <i class="fas fa-crown pro-icon"></i>
+            <span>Upgrade to Pro for advanced features like automatic grouping, detailed analytics, and custom themes!</span>
+        </div>
+    </div>
+    
+    <script src="popup.js" type="module"></script>
+</body>
+</html>
